@@ -1,8 +1,9 @@
 
-import styles from "./app.module.css"
+import styles from "./app.module.scss"
 import classnames from 'classnames';
 import plusIcon from './assets/icon-plus.svg';
 import tickIcon from './assets/icon-arrow-down.svg';
+import { Chips } from './share/components';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           </div>
         </div>
       </header>
+      <Chips>Paid</Chips>
     </div>
 
 
