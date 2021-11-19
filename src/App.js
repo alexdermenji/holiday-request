@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+
+import styles from "./app.module.css"
+import classnames from 'classnames';
+import plusIcon from './assets/icon-plus.svg';
+import tickIcon from './assets/icon-arrow-down.svg';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={classnames(styles.home, styles.container)}>
+      <header className={classnames(styles.header, styles.flex)}>
+        <div className={classnames(styles.left, styles.flex, styles['flex-column'])}>
+          <h1>Holiday requests</h1>
+          <span>There are 3 total holiday request</span>
+        </div>
+        <div className={classnames(styles.right, styles.flex)}>
+          <div className={classnames(styles.filter, styles.flex)}>
+            <span>Filter by status</span>
+            <img src={tickIcon} alt="" />
+            <ul className={classnames(styles.filterMenu)}>
+              <li>Draft</li>
+              <li>Waiting for aproval</li>
+              <li>Aproved</li>
+              <li>Rejected</li>
+              <li>Clear filter</li>
+            </ul>
+          </div>
+          <div className={classnames(styles.button, styles.flex)}>
+            <div className={classnames(styles.innerButton, styles.flex)}>
+              <img src={plusIcon} alt="" />
+            </div>
+            <span>New request</span>
+          </div>
+        </div>
       </header>
     </div>
+
+
+
   );
 }
 
