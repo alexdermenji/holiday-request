@@ -6,13 +6,45 @@ import tickIcon from './assets/icon-arrow-down.svg';
 import emptyIcon from './assets/illustration-empty.svg';
 
 import HolidayLine from './HolidayLine';
-import Button from './share/components/Button';
-import Modal from './Modal';
+import { Button } from './share/components';
+import AddRequestModal from './entities/components/AddRequestModal';
 import Navigation from './Navigation';
 
+const requests = [
+  {
+    id: 1,
+    from: '22.06.2021',
+    to: '30.06.2021',
+    days: '6',
+    status: 'pending',
+  },
+  {
+    id: 2,
+    from: '22.06.2021',
+    to: '30.06.2021',
+    days: '5',
+    status: 'aproved',
+  },
+  {
+    id: 3,
+    from: '22.06.2021',
+    to: '30.06.2021',
+    days: '4',
+    status: 'draft',
+  },
+];
 function App() {
+  //TODO get data and loader
+  //TODO check empty data
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [requestsList, setRequestsList] = useState(requests);
+
+  const addRequestHandler = (data) => {
+    data.status = 'pending';
+    setRequestsList((prevState) => [...prevState, data]);
+  };
+
   return (
     <div className={classnames(styles.app, styles.flex)}>
       <Navigation />
@@ -53,10 +85,11 @@ function App() {
         </header>
         <main>
           <div>
-            <HolidayLine status='pending' />
-            <HolidayLine status='aproved' />
-            <HolidayLine status='draft' />
+            {requestsList.map((request) => (
+              <HolidayLine {...request} key={request.id} />
+            ))}
           </div>
+          {/*TODO check array of requests */}
           <div className={styles.empty}>
             <img src={emptyIcon} alt='' />
             <h3>There is nothing here</h3>
@@ -67,7 +100,11 @@ function App() {
           </div>
         </main>
         {isModalOpen && (
-          <Modal closeModal={setModalOpen} isOpen={isModalOpen} />
+          <AddRequestModal
+            onFormSubmit={addRequestHandler}
+            closeModal={setModalOpen}
+            isOpen={isModalOpen}
+          />
         )}
       </div>
     </div>

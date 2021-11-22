@@ -1,43 +1,96 @@
 import classnames from 'classnames';
+import { useState } from 'react';
 import styles from './modal.module.scss';
+const initialFormData = {
+  id: Date.now(),
+  firstName: '',
+  lastName: '',
+  number: '',
+  team: '',
+  requestDate: '',
+  from: '',
+  to: '',
+};
 
-const Modal = ({ closeModal, isOpen }) => {
-  const date = new Date(Date.now()).toLocaleDateString('en-us', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
+//TODO calculate days
+
+const AddRequestModal = ({ closeModal, isOpen, onFormSubmit }) => {
+  const [formData, setFormData] = useState(initialFormData);
+
+  //TODO draft handler
+  const onSubmitFormHandler = (event) => {
+    event.preventDefault();
+    onFormSubmit(formData);
+    closeModal();
+  };
+
+  const onInputChangeHandler = (event) => {
+    const { id, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
   return (
     <div className={classnames(styles.wrap)}>
-      <form className={classnames(styles.content)}>
+      <form
+        className={classnames(styles.content)}
+        onSubmit={onSubmitFormHandler}
+      >
         <h1>Holiday request form</h1>
         <h4>Personal details</h4>
 
         <div className={classnames(styles.data)}>
           <div className={classnames(styles.input)}>
             <label htmlFor='firstName'>First name</label>
-            <input required type='text' id='firstName' placeholder='John' />
+            <input
+              onChange={onInputChangeHandler}
+              value={formData.firstName}
+              required
+              type='text'
+              id='firstName'
+              placeholder='John'
+            />
           </div>
           <div className={classnames(styles.input)}>
             <label htmlFor='lastName'>Last Name</label>
-            <input required type='text' id='lastName' placeholder='Adams' />
+            <input
+              onChange={onInputChangeHandler}
+              value={formData.lastName}
+              type='text'
+              id='lastName'
+              placeholder='Adams'
+            />
           </div>
           <div className={classnames(styles.flex, styles.inputsRow)}>
             <div className={classnames(styles.input)}>
               <label htmlFor='DCAM number'>DCAM number</label>
-              <input required type='text' id='dcamNumber' placeholder='7915' />
+              <input
+                onChange={onInputChangeHandler}
+                value={formData.number}
+                type='text'
+                id='number'
+                placeholder='7915'
+              />
             </div>
             <div className={classnames(styles.input)}>
               <label htmlFor='Team'>Team</label>
-              <input required type='text' id='team' placeholder='NZ-8' />
+              <input
+                onChange={onInputChangeHandler}
+                value={formData.team}
+                type='text'
+                id='team'
+                placeholder='NZ-8'
+              />
             </div>
             <div className={classnames(styles.input)}>
               <label htmlFor='requestDate'>Request date</label>
               <input
-                required
+                onChange={onInputChangeHandler}
+                value={formData.requestDate}
                 type='text'
                 id='requestDate'
-                defaultValue={date}
               />
             </div>
           </div>
@@ -46,18 +99,20 @@ const Modal = ({ closeModal, isOpen }) => {
             <div className={classnames(styles.input)}>
               <label htmlFor='fromDate'>From</label>
               <input
-                required
+                onChange={onInputChangeHandler}
+                value={formData.from}
                 type='text'
-                id='fromDate'
+                id='from'
                 placeholder='22.11.2021'
               />
             </div>
             <div className={classnames(styles.input)}>
               <label htmlFor='toDate'>To</label>
               <input
-                required
+                onChange={onInputChangeHandler}
+                value={formData.to}
                 type='text'
-                id='toDate'
+                id='to'
                 placeholder='30.11.2021'
               />
             </div>
@@ -75,7 +130,10 @@ const Modal = ({ closeModal, isOpen }) => {
               <button className={classnames(styles.darkPurple, styles.button)}>
                 Save draft
               </button>
-              <button className={classnames(styles.purple, styles.button)}>
+              <button
+                type='submit'
+                className={classnames(styles.purple, styles.button)}
+              >
                 Create request
               </button>
             </div>
@@ -85,4 +143,4 @@ const Modal = ({ closeModal, isOpen }) => {
     </div>
   );
 };
-export default Modal;
+export default AddRequestModal;

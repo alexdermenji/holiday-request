@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import plusIcon from '../../../assets/icon-plus.svg';
 import styles from './styles.module.scss';
 const Button = ({ setModalOpen, isModalOpen, children }) => {
-  console.log(setModalOpen, isModalOpen);
   return (
     <div
       onClick={() => setModalOpen(!isModalOpen)}
