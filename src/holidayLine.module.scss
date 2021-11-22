@@ -1,0 +1,33 @@
+.flex {
+  display: flex;
+}
+
+.content {
+  cursor: pointer;
+  gap: 16px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+  padding: 15px 32px;
+  background-color: #1e2139;
+  font-size: 12px;
+  align-items: center;
+  .left {
+    align-items: center;
+    flex-basis: 80%;
+    gap: 16px;
+    span {
+      flex: 1;
+    }
+  }
+
+  .right {
+    gap: 16px;
+    flex-basis: 20%;
+    align-items: center;
+  }
+}
+
+.title {
+  color: #7c5dfa;
+  font-weight: 700;
+}

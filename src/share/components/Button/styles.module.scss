@@ -1,0 +1,27 @@
+.button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 10px;
+  background-color: #7c5dfa;
+  border-radius: 40px;
+  span {
+    align-items: center;
+  }
+  .innerButton {
+    display: flex;
+    margin-right: 8px;
+    border-radius: 50%;
+    padding: 8px;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    img {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}

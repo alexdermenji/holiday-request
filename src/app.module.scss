@@ -1,23 +1,18 @@
+.app {
+  background-color: #141625;
+  min-height: 100vh;
+  flex-direction: column;
+  @media (min-width: 900px) {
+    flex-direction: row;
+  }
 
-button, .button {
-  cursor: pointer;
-  padding: 16px 24px;
-  border-radius: 30px;
-  border: none;
-  font-size: 12px;
-  margin-right: 8px;
-  color: #fff
+  .appContent {
+    padding: 0 20px;
+    flex: 1;
+    position: relative;
+  }
 }
 
-.dark-purple {
-  background-color: #252945;
-}
-.red {
-  background-color: #ec5757;
-}
-.purple {
-  background-color: #7c5dfa;
-}
 .green {
   background-color: #33d69f;
 }
@@ -36,9 +31,9 @@ button, .button {
   padding: 40px 10px;
   max-width: 850px;
   margin: 0 auto;
-  @media (min-width: 900px) {
-    padding-top: 72px;
-  }
+  // @media (min-width: 900px) {
+  //   padding-top: 72px;
+  // }
 }
 .nav-link {
   text-decoration: none;
@@ -47,7 +42,7 @@ button, .button {
 
 .status-button {
   &::before {
-    content: "";
+    content: '';
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -59,59 +54,39 @@ button, .button {
   padding: 8px 30px;
   border-radius: 10px;
 }
-.paid {
-  &::before {
-    background-color: #33d69f;
-  }
-  color: #33d69f;
-  background-color: rgba(51, 214, 160, 0.1);
-}
-.pending {
-  &::before {
-    background-color: #ff8f00;
-  }
-  color: #ff8f00;
-  background-color: rgba(255, 145, 0, 0.1);
-}
-.draft {
-  &::before {
-    background-color: #dfe3fa;
-  }
-  color: #dfe3fa;
-  background-color: rgba(223, 227, 250, 0.1);
-}
 
 .home {
-  color: #fff
+  color: #fff;
 }
 
 .header {
   margin-bottom: 65px;
 }
 
-.left, .right {
+.left,
+.right {
   flex: 1;
 }
 
 .right {
-   justify-content: flex-end;
-   align-items: center;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .filter {
+  cursor: pointer;
   align-items: center;
   position: relative;
   margin-right: 40px;
-}
 
-.filter span {
-  font-size: 12px;
-}
-
-.filter img {
-  margin-left: 12px;
-  width: 9px;
-  height: 5px;
+  span {
+    font-size: 12px;
+  }
+  img {
+    margin-left: 12px;
+    width: 9px;
+    height: 5px;
+  }
 }
 
 .filterMenu {
@@ -120,34 +95,39 @@ button, .button {
   top: 25px;
   list-style-type: none;
   background-color: #252945;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  li {
+    cursor: pointer;
+    font-size: 12px;
+    padding: 10px 20px;
+
+    &:hover {
+      color: #1e2139;
+      background-color: #fff;
+    }
+  }
 }
 
-.filterMenu li {
-  cursor: pointer;
-  font-size: 12px;
-  padding: 10px 20px;
-}
-.filterMenu li:hover {
-  color: #1e2139;
-  background-color: #fff;
-}
-
-.header .button {
-  padding: 8px 10px;
-  background-color: #7c5dfa;
-  border-radius: 40px;
-}
-.header .button .innerButton {
-margin-right: 8px;
-border-radius: 50%;
-padding: 8px;
-align-items: center;
-justify-content: center;
-background:#fff;
-}
-
-.innerButton img {
-  width: 10px;
-  height: 10px;
+.empty {
+  margin-top: 160px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  img {
+    width: 210px;
+    height: 200px;
+  }
+  h3 {
+    font-size: 20px;
+    margin-top: 40px;
+  }
+  p {
+    text-align: center;
+    max-width: 224px;
+    font-size: 12px;
+    font-weight: 300;
+    margin-top: 16px;
+  }
 }
