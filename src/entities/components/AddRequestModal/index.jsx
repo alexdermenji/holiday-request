@@ -12,15 +12,13 @@ const initialFormData = {
   to: '',
 };
 
-//TODO calculate days
-
 const AddRequestModal = ({ closeModal, isOpen, onFormSubmit }) => {
   const [formData, setFormData] = useState(initialFormData);
 
   //TODO draft handler
-  const onSubmitFormHandler = (event) => {
+  const onSubmitFormHandler = async (event) => {
     event.preventDefault();
-    onFormSubmit(formData);
+    await onFormSubmit(formData);
     closeModal();
   };
 

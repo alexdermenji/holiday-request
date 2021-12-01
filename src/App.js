@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './app.module.scss';
 import classnames from 'classnames';
 
@@ -9,40 +9,65 @@ import HolidayLine from './HolidayLine';
 import { Button } from './share/components';
 import AddRequestModal from './entities/components/AddRequestModal';
 import Navigation from './Navigation';
+import { requestsContext } from './modules/requests/dataContext';
 
-const requests = [
-  {
-    id: 1,
-    from: '22.06.2021',
-    to: '30.06.2021',
-    days: '6',
-    status: 'pending',
-  },
-  {
-    id: 2,
-    from: '22.06.2021',
-    to: '30.06.2021',
-    days: '5',
-    status: 'aproved',
-  },
-  {
-    id: 3,
-    from: '22.06.2021',
-    to: '30.06.2021',
-    days: '4',
-    status: 'draft',
-  },
-];
 function App() {
-  //TODO get data and loader
-  //TODO check empty data
+  //TODO calculate days
+  //TODO filter requests by status
+  //TODO block form while request sending
+  //TODO split to components (filter,)
+
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [requestsList, setRequestsList] = useState(requests);
+  const [requestsList, setRequestsList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentFilter, setCurrentFilter] = useState('');
 
-  const addRequestHandler = (data) => {
+  useEffect(() => {
+    requestsContext
+      .getRequest()
+      .then((response) => setRequestsList(response.data))
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  const renderRequests = () => {
+    if (!requestsList.length) {
+      return (
+        <div className={styles.empty}>
+          <img src={emptyIcon} alt='' />
+          <h3>There is nothing here</h3>
+          <p>
+            Create a new request by clicking the New Request button and get
+            started
+          </p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        {requestsList.map((request) => (
+          <HolidayLine {...request} key={request.id} />
+        ))}
+      </div>
+    );
+  };
+
+  const onChangeFilter = (e) => {
+    const { innerText } = e.target;
+    setCurrentFilter(e.target.innerText);
+  };
+
+  const addRequestHandler = async (data) => {
     data.status = 'pending';
-    setRequestsList((prevState) => [...prevState, data]);
+    try {
+      await requestsContext.addRequest(data);
+      setRequestsList((prevState) => [...prevState, data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -66,12 +91,14 @@ function App() {
               }}
               className={classnames(styles.filter, styles.flex)}
             >
-              <span>Filter by status</span>
+              <span>
+                {currentFilter === '' ? 'Filter by status' : currentFilter}
+              </span>
               <img src={tickIcon} alt='' />
               {isFilterOpen && (
                 <ul className={classnames(styles.filterMenu)}>
-                  <li>Draft</li>
-                  <li>Waiting for aproval</li>
+                  <li onClick={onChangeFilter}>Draft</li>
+                  <li>Pending</li>
                   <li>Aproved</li>
                   <li>Rejected</li>
                   <li>Clear filter</li>
@@ -83,22 +110,7 @@ function App() {
             </Button>
           </div>
         </header>
-        <main>
-          <div>
-            {requestsList.map((request) => (
-              <HolidayLine {...request} key={request.id} />
-            ))}
-          </div>
-          {/*TODO check array of requests */}
-          <div className={styles.empty}>
-            <img src={emptyIcon} alt='' />
-            <h3>There is nothing here</h3>
-            <p>
-              Create a new request by clicking the New Request button and get
-              started
-            </p>
-          </div>
-        </main>
+        <main>{isLoading ? 'Loading...' : renderRequests()}</main>
         {isModalOpen && (
           <AddRequestModal
             onFormSubmit={addRequestHandler}
