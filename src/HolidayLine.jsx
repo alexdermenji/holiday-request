@@ -3,26 +3,29 @@ import PropTypes from 'prop-types';
 import styles from './holidayLine.module.scss';
 import { Chips } from './share/components';
 import icon from './assets/icon-arrow-right.svg';
-const HolidayLine = (props) => {
+const HolidayLine = ({ id, from, to, days, status, onHolidayClick }) => {
   return (
     <div className={classnames(styles.flex, styles.content)}>
-      <div className={classnames(styles.flex, styles.left)}>
+      <div
+        onClick={onHolidayClick}
+        className={classnames(styles.flex, styles.left)}
+      >
         <span className={classnames(styles.holidayId)}>
           <span className={styles.title}>ID: </span>
-          {props.id}
+          {id}
         </span>
         <span className={classnames(styles.date)}>
-          <span className={styles.title}>from: </span> {props.from}
+          <span className={styles.title}>from: </span> {from}
         </span>
         <span className={classnames(styles.date)}>
-          <span className={styles.title}>to: </span> {props.to}
+          <span className={styles.title}>to: </span> {to}
         </span>
         <span className={classnames(styles.date)}>
-          <span className={styles.title}>days: </span> {props.days}
+          <span className={styles.title}>days: </span> {days}
         </span>
       </div>
       <div className={classnames(styles.flex, styles.right)}>
-        <Chips variant={props.status}>{props.status}</Chips>
+        <Chips variant={status}>{status}</Chips>
         <div className={icon}>
           <img src={icon} alt='' />
         </div>

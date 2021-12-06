@@ -2,8 +2,9 @@ import classnames from 'classnames';
 import styles from './styles.module.scss';
 import tickIcon from '../../../assets/icon-arrow-down.svg';
 import { useState } from 'react';
-const FilterRequests = ({ currentFilter, onChangeFilter }) => {
+const FilterRequests = ({ currentFilter, onChangeFilter, onClearFilter }) => {
   const [isFilterOpen, setFilterOpen] = useState(false);
+
   return (
     <div
       onClick={() => {
@@ -19,7 +20,7 @@ const FilterRequests = ({ currentFilter, onChangeFilter }) => {
           <li onClick={onChangeFilter}>Pending</li>
           <li onClick={onChangeFilter}>Aproved</li>
           <li onClick={onChangeFilter}>Rejected</li>
-          <li onClick={onChangeFilter}>Clear filter</li>
+          <li onClick={onClearFilter}>Clear filter</li>
         </ul>
       )}
     </div>
