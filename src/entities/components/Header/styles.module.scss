@@ -1,0 +1,16 @@
+.flex {
+  display: flex;
+}
+.header {
+  margin-bottom: 65px;
+}
+
+.left,
+.right {
+  flex: 1;
+}
+
+.right {
+  justify-content: flex-end;
+  align-items: center;
+}

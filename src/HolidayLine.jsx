@@ -8,7 +8,6 @@ const HolidayLine = (props) => {
     <div className={classnames(styles.flex, styles.content)}>
       <div className={classnames(styles.flex, styles.left)}>
         <span className={classnames(styles.holidayId)}>
-          {' '}
           <span className={styles.title}>ID: </span>
           {props.id}
         </span>
@@ -33,7 +32,7 @@ const HolidayLine = (props) => {
 };
 
 HolidayLine.propTypes = {
-  status: PropTypes.oneOf(['aproved', 'pending', 'draft']),
+  status: PropTypes.oneOf(['aproved', 'pending', 'draft', 'rejected']),
 };
 
 export default HolidayLine;

@@ -34,3 +34,10 @@
   color: #dfe3fa;
   background-color: rgba(223, 227, 250, 0.1);
 }
+.rejected {
+  &::before {
+    background-color: red;
+  }
+  color: #dfe3fa;
+  background-color: rgba(223, 227, 250, 0.1);
+}

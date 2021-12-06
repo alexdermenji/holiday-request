@@ -11,7 +11,13 @@ const ChipsComponent = (props) => {
 };
 
 ChipsComponent.propTypes = {
-  variant: PropTypes.oneOf(['default', 'aproved', 'pending', 'draft']),
+  variant: PropTypes.oneOf([
+    'default',
+    'aproved',
+    'pending',
+    'draft',
+    'rejected',
+  ]),
 };
 
 //TODO defaultProps not working

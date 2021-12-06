@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import { useState } from 'react';
 import styles from './modal.module.scss';
 const initialFormData = {
-  id: Date.now(),
   firstName: '',
   lastName: '',
   number: '',

@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './app.module.scss';
 import classnames from 'classnames';
-
-import tickIcon from './assets/icon-arrow-down.svg';
-import emptyIcon from './assets/illustration-empty.svg';
-
 import HolidayLine from './HolidayLine';
-import { Button } from './share/components';
 import AddRequestModal from './entities/components/AddRequestModal';
 import Navigation from './Navigation';
 import { requestsContext } from './modules/requests/dataContext';
+import EmptyBlock from './entities/components/EmptyBlock';
+import Header from './entities/components/Header';
 
 function App() {
   //TODO calculate days
@@ -17,7 +14,6 @@ function App() {
   //TODO block form while request sending
   //TODO split to components (filter,)
 
-  const [isFilterOpen, setFilterOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [requestsList, setRequestsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,31 +29,42 @@ function App() {
       .finally(() => setIsLoading(false));
   }, []);
 
+  const filterRequests = () => {
+    return requestsList
+      .filter((item) => item.status === currentFilter)
+      .map((request, index) => (
+        <HolidayLine
+          {...request}
+          id={request.id || index + 1}
+          key={request.id || index + 1}
+        />
+      ));
+  };
   const renderRequests = () => {
     if (!requestsList.length) {
-      return (
-        <div className={styles.empty}>
-          <img src={emptyIcon} alt='' />
-          <h3>There is nothing here</h3>
-          <p>
-            Create a new request by clicking the New Request button and get
-            started
-          </p>
-        </div>
-      );
+      return <EmptyBlock />;
     }
+
+    if (currentFilter) {
+      return filterRequests();
+    }
+
     return (
-      <div>
-        {requestsList.map((request) => (
-          <HolidayLine {...request} key={request.id} />
+      <>
+        {requestsList.map((request, index) => (
+          <HolidayLine
+            {...request}
+            id={request.id || index + 1}
+            key={request.id || index + 1}
+          />
         ))}
-      </div>
+      </>
     );
   };
 
   const onChangeFilter = (e) => {
     const { innerText } = e.target;
-    setCurrentFilter(e.target.innerText);
+    setCurrentFilter(innerText);
   };
 
   const addRequestHandler = async (data) => {
@@ -74,42 +81,12 @@ function App() {
     <div className={classnames(styles.app, styles.flex)}>
       <Navigation />
       <div className={classnames(styles.home, styles.container)}>
-        <header className={classnames(styles.header, styles.flex)}>
-          <div
-            className={classnames(
-              styles.left,
-              styles.flex,
-              styles['flex-column']
-            )}
-          >
-            <h1>Holiday requests</h1>
-          </div>
-          <div className={classnames(styles.right, styles.flex)}>
-            <div
-              onClick={() => {
-                setFilterOpen(!isFilterOpen);
-              }}
-              className={classnames(styles.filter, styles.flex)}
-            >
-              <span>
-                {currentFilter === '' ? 'Filter by status' : currentFilter}
-              </span>
-              <img src={tickIcon} alt='' />
-              {isFilterOpen && (
-                <ul className={classnames(styles.filterMenu)}>
-                  <li onClick={onChangeFilter}>Draft</li>
-                  <li>Pending</li>
-                  <li>Aproved</li>
-                  <li>Rejected</li>
-                  <li>Clear filter</li>
-                </ul>
-              )}
-            </div>
-            <Button isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
-              New request
-            </Button>
-          </div>
-        </header>
+        <Header
+          onChangeFilter={onChangeFilter}
+          currentFilter={currentFilter}
+          isModalOpen={isModalOpen}
+          setModalOpen={setModalOpen}
+        />
         <main>{isLoading ? 'Loading...' : renderRequests()}</main>
         {isModalOpen && (
           <AddRequestModal

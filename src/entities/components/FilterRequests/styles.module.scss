@@ -1,0 +1,40 @@
+.flex {
+  display: flex;
+}
+
+.filter {
+  cursor: pointer;
+  align-items: center;
+  position: relative;
+  margin-right: 40px;
+
+  span {
+    font-size: 12px;
+  }
+  img {
+    margin-left: 12px;
+    width: 9px;
+    height: 5px;
+  }
+}
+
+.filterMenu {
+  width: 120px;
+  position: absolute;
+  top: 25px;
+  list-style-type: none;
+  background-color: #252945;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  li {
+    cursor: pointer;
+    font-size: 12px;
+    padding: 10px 20px;
+
+    &:hover {
+      color: #1e2139;
+      background-color: #fff;
+    }
+  }
+}
