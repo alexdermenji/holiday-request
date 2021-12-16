@@ -7,6 +7,7 @@ import Navigation from './Navigation';
 import { requestsContext } from './modules/requests/dataContext';
 import EmptyBlock from './entities/components/EmptyBlock';
 import Header from './entities/components/Header';
+import RequestView from './RequestView';
 
 function App() {
   //TODO filter (крестик и закрытие по пустому месту)
@@ -19,6 +20,7 @@ function App() {
   const [requestsList, setRequestsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState('');
+  const [requestView, setRequestView] = useState(null);
 
   useEffect(() => {
     requestsContext
@@ -30,9 +32,10 @@ function App() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const onHolidayClick = useCallback(() => {
-    console.log('click');
+  const onHolidayClick = useCallback((request) => {
+    setRequestView(request);
   }, []);
+
   const filterRequests = () => {
     return requestsList
       .filter((item) => item.status === currentFilter.toLowerCase())
@@ -58,7 +61,9 @@ function App() {
       <>
         {requestsList.map((request, index) => (
           <HolidayLine
-            onHolidayClick={onHolidayClick}
+            onHolidayClick={() => {
+              onHolidayClick(request);
+            }}
             {...request}
             id={request.id || index + 1}
             key={request.id || index + 1}
@@ -100,7 +105,10 @@ function App() {
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
         />
-        <main>{isLoading ? 'Loading...' : renderRequests()}</main>
+        <main>
+          {requestView ? <RequestView data={requestView} /> : null}
+          {isLoading ? 'Loading...' : renderRequests()}
+        </main>
         {isModalOpen && (
           <AddRequestModal
             onFormSubmit={addRequestHandler}

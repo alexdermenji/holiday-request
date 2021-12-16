@@ -17,7 +17,11 @@ const Header = ({ filter, isModalOpen, setModalOpen }) => {
           currentFilter={filter.currentFilter}
           onChangeFilter={filter.onChangeFilter}
         />
-        <Button isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
+        <Button
+          isModalOpen={isModalOpen}
+          setModalOpen={setModalOpen}
+          color='violet'
+        >
           New request
         </Button>
       </div>

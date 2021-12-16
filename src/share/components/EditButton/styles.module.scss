@@ -1,0 +1,26 @@
+.button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  padding: 17px 24px;
+
+  border-radius: 40px;
+  span {
+    align-items: center;
+  }
+}
+
+.grey {
+  background-color: #252945;
+}
+
+.red {
+  background-color: #ec5757;
+}
+
+.violet {
+  background-color: #7c5dfa;
+}
