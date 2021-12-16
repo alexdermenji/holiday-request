@@ -1,6 +1,6 @@
 ### Start project 
- - npm i
- - yarn start
+ - npm install
+ - npm start
 
 # Holiday Requests app for Tesco colleagues
 
